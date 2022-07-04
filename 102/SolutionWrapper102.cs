@@ -8,11 +8,11 @@ namespace LeetCode._102
 {
     internal class SolutionWrapper102 : SolutionWrapper
     {
-        public SolutionWrapper102(string testFilePath, int units) : base(testFilePath, units)
+        public SolutionWrapper102(string testCasesPath, int parametersPerTestCase) : base(testCasesPath, parametersPerTestCase)
         {
         }
 
-        protected override void Exec(out string log, params string[] testCase)
+        protected override void Exec(string[] testCase, out string log)
         {
             var solution=new Solution();
             var list=solution.LevelOrder(TreeNodeFactory.Create(testCase[0]));

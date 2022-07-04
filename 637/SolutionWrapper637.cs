@@ -8,11 +8,11 @@ namespace LeetCode._637
 {
     internal class SolutionWrapper637 : SolutionWrapper
     {
-        public SolutionWrapper637(string testFilePath, int units) : base(testFilePath, units)
+        public SolutionWrapper637(string testCasesPath, int parametersPerTestCase) : base(testCasesPath, parametersPerTestCase)
         {
         }
 
-        protected override void Exec(out string log, params string[] testCase)
+        protected override void Exec(string[] testCase, out string log)
         {
             var solution =new Solution();
             var list=solution.AverageOfLevels(TreeNodeFactory.Create(testCase[0]));

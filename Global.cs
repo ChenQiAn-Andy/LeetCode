@@ -63,22 +63,22 @@ public abstract class SolutionWrapper:IDisposable
 {
     StringBuilder logs;
 
-    public SolutionWrapper(string testFilePath,int units)
+    public SolutionWrapper(string testCasesPath,int parametersPerTestCase)
     {
-        if (!File.Exists(testFilePath))
+        if (!File.Exists(testCasesPath))
         {
-            throw new FileNotFoundException(testFilePath);
+            throw new FileNotFoundException(testCasesPath);
         }
         logs = new StringBuilder();
-        string[] testCases= File.ReadAllLines(testFilePath);
-        for(int i = 0; i < testCases.Length; i+= units)
+        string[] testCases= File.ReadAllLines(testCasesPath);
+        for(int i = 0; i < testCases.Length; i+= parametersPerTestCase)
         {
-            Exec(out string log,testCases[i..(i + units)]);
+            Exec(testCases[i..(i + parametersPerTestCase)], out string log);
             logs.AppendLine(log);
         }
     }
 
-    protected abstract void Exec(out string log,params string[] testCase);
+    protected abstract void Exec(string[] testCase, out string log);
 
     public void Log()
     {
@@ -88,6 +88,6 @@ public abstract class SolutionWrapper:IDisposable
     public virtual void Dispose()
     {
         logs.Clear();
-        Console.WriteLine("Disposed");
+        Console.WriteLine("Disposed.");
     }
 }
