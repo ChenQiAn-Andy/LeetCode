@@ -11,6 +11,11 @@ public static class TreeNodeFactory
 {
     public static TreeNode Create(string data)
     {
+        data= data.Trim();
+        if (data.Length <= 2)
+        {
+            return null;
+        }
         string[] vals=("#," + data.Trim().Substring(1, data.Length - 2)).Split(',');
         if(vals.Length == 1)
         {
@@ -48,7 +53,9 @@ public static class TreeNodeFactory
             queue.Enqueue(node.left);
             queue.Enqueue(node.right);
         }
-        return "["+string.Concat(memo.Select(e=>e.HasValue?e.Value.ToString():"null"),',')+"]";
+        int index=memo.Count;
+        while (0 <= index - 1 && memo[--index] == null) ;
+        return "["+string.Join(",", memo.Take(index+1).Select(e=>e.HasValue?e.Value.ToString():"null"))+"]";
     }
 }
 
@@ -71,7 +78,7 @@ public abstract class SolutionWrapper:IDisposable
         }
     }
 
-    protected abstract void Exec(out string msg,params string[] testCase);
+    protected abstract void Exec(out string log,params string[] testCase);
 
     public void Log()
     {
