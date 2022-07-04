@@ -16,7 +16,7 @@ public static class TreeNodeFactory
         {
             return null;
         }
-        string[] vals=("#," + data.Trim().Substring(1, data.Length - 2)).Split(',');
+        string[] vals=("#," + data.Substring(1, data.Length - 2)).Split(',');
         if(vals.Length == 1)
         {
             return null;

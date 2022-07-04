@@ -14,7 +14,9 @@ namespace LeetCode._102
 
         protected override void Exec(out string log, params string[] testCase)
         {
-            log = "";
+            var solution=new Solution();
+            var list=solution.LevelOrder(TreeNodeFactory.Create(testCase[0]));
+            log = "["+String.Join(",",list.Select(e=>"["+string.Join(",",e)+"]"))+"]";
         }
     }
 }
