@@ -8,8 +8,6 @@
 		-  创建 *Solution.cs* 实例并传入测试数据；
 		-  打印测试结果.
 	3. 在 *Program.cs* 中实例化该SolutionWrapper.cs子类，传入 *测试样例* 文件路径，进行测试.
-<BR>
-<BR>
 - 举例 [102. 二叉树的层序遍历](https://leetcode.cn/problems/binary-tree-level-order-traversal/ )
 	1. *Solution.cs*
 	
