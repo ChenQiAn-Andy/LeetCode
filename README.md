@@ -57,7 +57,7 @@
 			{
 			    internal class SolutionWrapper102 : SolutionWrapper
 			    {
-			        public SolutionWrapper102(string testFilePath, int units) : base(testFilePath, units)
+			        public SolutionWrapper102(string testCasesPath, int parametersPerTestCase) : base(testCasesPath, parametersPerTestCase)
 			        {
 			        }
 			
