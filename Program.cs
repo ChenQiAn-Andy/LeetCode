@@ -14,7 +14,12 @@
 //    wrapper.Log();
 //}
 
-using (SolutionWrapper wrapper = new LeetCode._129.SolutionWrapper129("../../../129/Test cases.txt", 1))
+//using (SolutionWrapper wrapper = new LeetCode._129.SolutionWrapper129("../../../129/Test cases.txt", 1))
+//{
+//    wrapper.Log();
+//}
+
+using ( SolutionWrapper wrapper = new LeetCode._654.SolutionWrapper654( "../../../654/Test cases.txt" , 1 ) )
 {
-    wrapper.Log();
+    wrapper.Log( );
 }
