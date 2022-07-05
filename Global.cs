@@ -16,11 +16,7 @@ public static class TreeNodeFactory
         {
             return null;
         }
-        string[ ] vals = ( "#," + data.Substring( 1 , data.Length - 2 ) ).Split( ',' );
-        if ( vals.Length == 1 )
-        {
-            return null;
-        }
+        string[ ] vals = ( "#," + data.Substring( 1 , data.Length - 2 ) ).Split(",");
         Func<int , TreeNode> Traverse = null;
         Traverse = index =>
         {
