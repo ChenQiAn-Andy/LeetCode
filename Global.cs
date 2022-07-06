@@ -7,16 +7,25 @@ public class TreeNode
     public TreeNode right;
 }
 
+public class CompletelyBinaryTree { }
+
+public class BinarySearchTree { }
+
 public static class TreeNodeFactory
 {
-    public static TreeNode Create( string data )
+    public static TreeNode Create( string levelOrderSequence )
     {
-        data = data.Trim( );
-        if ( data.Length <= 2 )
+        return Create( levelOrderSequence , new CompletelyBinaryTree());
+    }
+
+    public static TreeNode Create( string levelOrderSequence , CompletelyBinaryTree _)
+    {
+        levelOrderSequence = levelOrderSequence.Trim( );
+        if ( levelOrderSequence.Length <= 2 )
         {
             return null;
         }
-        string[ ] vals = ( "#," + data.Substring( 1 , data.Length - 2 ) ).Split(",");
+        string[ ] vals = ( "#," + levelOrderSequence.Substring( 1 , levelOrderSequence.Length - 2 ) ).Split(",");
         Func<int , TreeNode> Traverse = null;
         Traverse = index =>
         {
@@ -30,6 +39,40 @@ public static class TreeNodeFactory
             return root;
         };
         return Traverse( 1 );
+    }
+
+    public static TreeNode Create( string levelOrderSequence , BinarySearchTree _ )
+    {
+        levelOrderSequence = levelOrderSequence.Trim( );
+        if ( levelOrderSequence.Length <= 2 )
+        {
+            return null;
+        }
+        var lvlOrderSeq = new List<string>( levelOrderSequence.Substring( 1 , levelOrderSequence.Length - 2 ).Split( "," ) )
+            .Where( element => element != "null" )
+            .Select( element => int.Parse( element ) ).ToList( );
+        var inorderSeq = new List<int>( lvlOrderSeq );
+        inorderSeq.Sort( );
+        var memo = new Dictionary<int , int>( );
+        for ( int i = 0 ; i < inorderSeq.Count ; i++ )
+        {
+            memo.Add( inorderSeq[ i ] , i );
+        }
+        Func<List<int> , int , int , TreeNode> Traverse = null;
+        Traverse = ( lvlOrderSeq , inorderSeqStart , inorderSeqEnd ) =>
+        {
+            if ( lvlOrderSeq.Count == 0 || inorderSeqStart == inorderSeqEnd )
+            {
+                return null;
+            }
+            int value = lvlOrderSeq.First( );
+            int i = memo[ value ];
+            TreeNode root = new TreeNode { val = value };
+            root.left = Traverse( lvlOrderSeq.Where( element => element < value ).ToList( ) , inorderSeqStart , i );
+            root.right = Traverse( lvlOrderSeq.Where( element => value < element ).ToList( ) , i + 1 , inorderSeqEnd );
+            return root;
+        };
+        return Traverse( lvlOrderSeq , 0 , inorderSeq.Count );
     }
 
     public static string Print( this TreeNode root )
