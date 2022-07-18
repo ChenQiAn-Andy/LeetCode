@@ -120,6 +120,34 @@ public static class TreeNodeFactory
     }
 }
 
+public static class Utils
+{
+    public static string[ ] ToStringArray(this string array )
+    {
+        return ToEnumerable( array , num => num ).ToArray( );
+    }
+
+    public static int[ ] ToIntArray(this string array )
+    {
+        return ToEnumerable( array , num => int.Parse( num ) ).ToArray( );
+    }
+
+    private static IEnumerable<T> ToEnumerable<T>( string array , Func<string , T> selector )
+    {
+        int i = array.IndexOf( '[' ), j = array.LastIndexOf( ']' );
+        if ( i == -1 || j == -1 || j < i )
+        {
+            return null;
+        }
+        return array.Substring( i + 1 , j - i - 1 ).Replace("\"","").Split( "," ).Select( selector );
+    }
+
+    public static string Print(this int[ ] array )
+    {
+        return "[" + string.Join( "," , array ) + "]";
+    }
+}
+
 public abstract class SolutionWrapper : IDisposable
 {
     StringBuilder logs;
